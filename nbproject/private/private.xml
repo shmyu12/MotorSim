@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/NetBeansProjects/MotorSim/src/solver/DiffEqu.java</file>
-            <file>file:/Z:/NetBeansProjects/MotorSim/src/hello/HelloWorldSwing.java</file>
+            <file>file:/D:/java/MotorSim/src/DiffEqu/DiffEqu.java</file>
+            <file>file:/D:/java/MotorSim/src/Motor/Motor.java</file>
+            <file>file:/D:/java/MotorSim/src/Solver/Solver.java</file>
         </group>
     </open-files>
 </project-private>
