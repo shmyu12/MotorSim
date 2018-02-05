@@ -24,11 +24,11 @@ public class Motor {
         this.efc = efc;
         this.inertia = inertia;
         this.dampingRatio = dampingRatio;
-        equ = new DiffEqu(calcPram(), "", 0);
+        equ = new DiffEqu(calcPram());
     }
     
-    private int[] calcPram() {
-        int[] coefficient = new int[3];
+    private double[] calcPram() {
+        double[] coefficient = new double[3];
         coefficient [0] = 1;
         coefficient [1] = 0;
         coefficient [2] = 3;

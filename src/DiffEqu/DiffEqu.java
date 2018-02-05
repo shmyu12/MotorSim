@@ -5,22 +5,30 @@
  */
 package DiffEqu;
 
+import PeriodicFunc.PeriodicFunc;
+
 /**
  *
  * @author Char Aznable
  */
 public class DiffEqu {
-    int[] coefficient;
-    int omega;
-    String waveform = new String();
+    double[] coefficient;
+    PeriodicFunc func;
     
-    public DiffEqu(int[] coefficient, String waveform, int omega){
-        this.coefficient = new int[coefficient.length];
+    public DiffEqu(double[] coefficient, double omega, double maxVal, double duty, String waveform){
+        this.coefficient = new double[coefficient.length];
         for (int i=0; i<coefficient.length; i++) {
             this.coefficient[i] = coefficient[i];
         }
-        this.waveform = waveform;
-        this. omega = omega;
+        func = new PeriodicFunc(omega, maxVal, duty, waveform);
+    }
+    
+    public DiffEqu(double[] coefficient) {
+        this(coefficient, 0, 0, 0, "");
+    }
+    
+    public void setFunc(double omega, double maxVal, double duty, String waveform) {
+        func.setPram(omega, maxVal, duty, waveform);
     }
     
     public String getEqu(){
@@ -36,21 +44,29 @@ public class DiffEqu {
                 equ += 0+"+";
             }
         }
-        equ += "="+getFunc();
+        equ += "="+func.getFunc();
         return equ;
     }
     
-    String getFunc() {
-        return waveform+"("+ omega +")";
+    public double getCoefficient(int i) {
+        return coefficient[i];
     }
     
-    public String getOrder() {
-        return (coefficient.length-1) + "階微分方程式";
+    public int getOrder() {
+        return coefficient.length-1;
+    }
+    
+    public double calcFunc(double time) {
+        return func.calcFunc(time);
     }
     
     public static void main(String[] args) {
-        int[] coefficient = {5, 0, 10};
-        DiffEqu equ = new DiffEqu(coefficient, "sin", 5);
+        double[] coefficient = {5, 0, 10};
+        double omega = 3.14;
+        double maxVal = 1;
+        double duty = 80;    //persent
+        String waveform = "triangle";
+        DiffEqu equ = new DiffEqu(coefficient, omega, maxVal, duty, waveform);
         System.out.println(equ.getEqu());
         System.out.println(equ.getOrder());
     }
