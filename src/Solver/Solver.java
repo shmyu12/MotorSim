@@ -6,7 +6,10 @@
 package Solver;
 
 import DiffEqu.DiffEqu;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 /**
  *
  * @author Char Aznable
@@ -29,10 +32,10 @@ public class Solver{
                     case 0:
                         break;
                     case 1:
-                        tmp[l] += k[l][j-1]/2;
+                        tmp[l] += k[l][j-1]/2.0;
                         break;
                     case 2:
-                        tmp[l] += k[l][j-1]/2;
+                        tmp[l] += k[l][j-1]/2.0;
                         break;
                     case 3:
                         tmp[l] += k[l][j-1];
@@ -60,9 +63,9 @@ public class Solver{
                         break;
                     case 2:
                         if (i == order-1) {
-                            k[i][j] = interval*rk4Pram(equ, tmp, time, (interval/2));
+                            k[i][j] = interval*rk4Pram(equ, tmp, time, (interval/2.0));
                         } else {
-                            k[i][j] = interval*(init[i+1] + k[i+1][1]/2);
+                            k[i][j] = interval*(init[i+1] + k[i+1][1]/2.0);
                         }
                         break;
                     case 3:
@@ -77,7 +80,7 @@ public class Solver{
             }
         }
         for (int i=order-1;i>=0;i--) {
-            x[i] = init[i] + (k[i][0] + 2*k[i][1] + 2*k[i][2] + k[i][3])/6;
+            x[i] = init[i] + (k[i][0] + 2.0*k[i][1] + 2.0*k[i][2] + k[i][3])/6.0;
         }
         return x; 
     }
@@ -93,24 +96,40 @@ public class Solver{
     }
     
     public static void main(String args[]) {
-        double[] coefficient = {-9, 0, 34, -2};
-        double omega = 3.14;
-        double maxVal = 1;
+        double[] coefficient = {-3, 2, 1};
+        double omega = 1;
+        double maxVal = 2;
         double duty = 80;
-        String waveform = "";
+        String waveform = "cos";
         DiffEqu equ = new DiffEqu(coefficient, omega, maxVal, duty, waveform);
-        
+
         System.out.println(equ.getEqu());
         
-        double[] init = {0, 0, 1};
+        double[] init = {0, 0};
         double time = 0;
         double interval = 0.01;
         
-        for (int i=0;i<200;i++) {
-            //System.out.println(Arrays.toString(init));
-            System.out.println(time+"\t"+init[0]);
-            init = solve(equ, init, time, interval);
-            time += interval;
+        double tv = 0;
+        try {
+            // FileWriterクラスのオブジェクトを生成する
+            FileWriter file = new FileWriter("test.txt");
+            // PrintWriterクラスのオブジェクトを生成する
+            PrintWriter pw = new PrintWriter(new BufferedWriter(file));
+            
+            //ファイルに書き込む
+            for (int i=0;i<200000;i++) {
+                //System.out.println(Arrays.toString(init));
+                pw.println(time+"\t"+init[0]+"\t"+tv);
+                time += interval;
+                init = solve(equ, init, time, interval);
+                //tv = Math.sin(time);
+                tv = (3.0/20.0)*Math.exp(-3.0*time) + (1.0/4.0)*Math.exp(time)
+                            + (1.0/5.0)*Math.sin(time) - (2.0/5.0)*Math.cos(time);
+            }
+            //ファイルを閉じる
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -72,7 +72,7 @@ public class PeriodicFunc {
     }
     
     public String getFunc() {
-        return waveform+"("+omega+"t:"+duty+"%)";
+        return maxVal+waveform+"("+omega+"t:"+duty+"%)";
     }
     
     public static void main (String[] args) {
