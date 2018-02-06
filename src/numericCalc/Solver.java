@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Solver;
+package numericCalc;
 
-import DiffEqu.DiffEqu;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class Solver{
     Solver(){
     }
 
-    static double[] solve(DiffEqu equ, double[] init, double time, double interval){
+    public static double[] solve(DiffEqu equ, double[] init, double time, double interval){
         int order = equ.getOrder();
         if (order != init.length) return init;    //係数とinitの数が一致しなかったら変更なし
         double[][] k = new double[order][4];    //
@@ -129,7 +128,6 @@ public class Solver{
             //ファイルを閉じる
             pw.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

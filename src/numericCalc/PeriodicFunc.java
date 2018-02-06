@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PeriodicFunc;
+package numericCalc;
 
 import static java.lang.Math.*;
 
@@ -72,7 +72,16 @@ public class PeriodicFunc {
     }
     
     public String getFunc() {
-        return maxVal+waveform+"("+omega+"t:"+duty+"%)";
+        switch (waveform) { 
+            case "sin":
+            case "cos":
+            case "triangle":
+                return maxVal+waveform+"("+omega+"t)";
+            case "rect":
+                return maxVal+waveform+"("+omega+"t:"+duty+"%)";
+            default:
+                return "0";
+        }
     }
     
     public static void main (String[] args) {
@@ -81,6 +90,8 @@ public class PeriodicFunc {
         double duty = 80;    //persent
         String waveform = "triangle";
         PeriodicFunc func = new PeriodicFunc(omega, maxVal, duty, waveform);
+        
+        System.out.println(func.getFunc());
         
         for (double t=0; t<10; t+=0.1) {
             System.out.println(t +","+ func.calcFunc(t));

@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DiffEqu;
-
-import PeriodicFunc.PeriodicFunc;
+package numericCalc;
 
 /**
  *
@@ -35,13 +33,14 @@ public class DiffEqu {
         String equ = new String();
         for (int i=coefficient.length-1; i>=0; i--) {
             if (coefficient[i] != 0) {
-                equ += coefficient[i]+"x";
+                if (i!=coefficient.length-1) {
+                    equ += String.format("%+.2f",coefficient[i])+"x";
+                } else {
+                    equ += String.format("%.2f",coefficient[i])+"x";
+                }
                 for (int j=0; j<i; j++) {
                     equ += "'";
                 }
-                if (i!=0) equ += "+";
-            } else {
-                equ += 0+"+";
             }
         }
         equ += "="+func.getFunc();

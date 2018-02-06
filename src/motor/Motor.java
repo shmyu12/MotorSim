@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Motor;
-import DiffEqu.DiffEqu;
+package motor;
+import numericCalc.DiffEqu;
 /**
  *
  * @author Char Aznable
@@ -24,10 +24,28 @@ public class Motor {
         this.efc = efc;
         this.inertia = inertia;
         this.dampingRatio = dampingRatio;
-        equ = new DiffEqu(calcPram());
+        equ = new DiffEqu(calcCoefficient());
     }
     
-    private double[] calcPram() {
+    public Motor () {
+        resistance = 0;
+        inductance = 0;
+        efc = 0;
+        inertia = 0;
+        dampingRatio = 0;
+        equ = new DiffEqu(calcCoefficient());
+    }
+    
+    public void setPram (double resistance, double inductance, double efc, double inertia, double dampingRatio) {
+        this.resistance = resistance;
+        this. inductance = inductance;
+        this.efc = efc;
+        this.inertia = inertia;
+        this.dampingRatio = dampingRatio;
+        equ = new DiffEqu(calcCoefficient());
+    }
+    
+    private double[] calcCoefficient() {
         double[] coefficient = new double[3];
         coefficient [0] = 1;
         coefficient [1] = 0;
