@@ -90,6 +90,7 @@ public class Solver{
         for (int i=order-1;i>=0;i--) {
             ret -= equ.getCoefficient(i)*init[i];
         }
+        if (equ.getCoefficient(order) == 0) return ret;
         ret /= equ.getCoefficient(order);
         return ret;
     }

@@ -8,7 +8,6 @@ package plot;
 import java.util.ArrayList;
 import java.util.List;
 import numericCalc.DiffEqu;
-import numericCalc.PeriodicFunc;
 import static numericCalc.Solver.solve;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
@@ -21,7 +20,6 @@ import org.knowm.xchart.XYChart;
 
 public class Plot {
     DiffEqu equ;
-    PeriodicFunc func;
     
     public Plot (DiffEqu equ) {
         this.equ = equ;
@@ -39,7 +37,7 @@ public class Plot {
         sw.displayChart();
         
         while(true) {
-            Thread.sleep(50);
+            Thread.sleep(10);
             
             time += interval;
             init = solve(equ, init, time, interval);
@@ -50,20 +48,23 @@ public class Plot {
             
             chart.updateXYSeries("responce", xData, yData, null);
             sw.repaintChart();
+            
+            System.out.println(equ.calcFunc(time));
         }
     }
     
     public static void main(String[] args) throws Exception {
-        double[] coefficient = {-3, 2, 1};
-        double omega = 1;
-        double maxVal = 2;
+        //double[] coefficient = {-3, 2, 1};
+        double[] coefficient = {1, 0};
+        double omega = 100;
+        double maxVal = 1;
         double duty = 80;
-        String waveform = "cos";
+        String waveform = "sin";
         DiffEqu equ = new DiffEqu(coefficient, omega, maxVal, duty, waveform);
         
-        double[] init = {0, 0};
+        double[] init = {0};
         double time = 0;
-        double interval = 0.01;
+        double interval = 0.001;
         
         Plot plot = new Plot(equ);
         plot.go(init, time, interval);

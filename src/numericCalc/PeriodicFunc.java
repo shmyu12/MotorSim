@@ -41,6 +41,8 @@ public class PeriodicFunc {
                 return maxVal*rectangleWave(time);
             case "triangle":
                 return maxVal*triangulerWave(time);
+            case "step":
+                return maxVal;
             default:
                 return 0;
         }
@@ -79,6 +81,8 @@ public class PeriodicFunc {
                 return maxVal+waveform+"("+omega+"t)";
             case "rect":
                 return maxVal+waveform+"("+omega+"t:"+duty+"%)";
+            case "step":
+                return maxVal+"";
             default:
                 return "0";
         }
