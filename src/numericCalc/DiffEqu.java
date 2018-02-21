@@ -13,6 +13,11 @@ public class DiffEqu {
     double[] coefficient;
     PeriodicFunc func;
     
+    public DiffEqu(double[] coefficient, PeriodicFunc func) {
+        this.coefficient = coefficient;
+        this.func = func;
+    }
+    
     public DiffEqu(double[] coefficient, double omega, double maxVal, double duty, String waveform){
         this.coefficient = new double[coefficient.length];
         for (int i=0; i<coefficient.length; i++) {
@@ -25,8 +30,8 @@ public class DiffEqu {
         this(coefficient, 0, 0, 0, "");
     }
     
-    public void setFunc(double omega, double maxVal, double duty, String waveform) {
-        func.setPram(omega, maxVal, duty, waveform);
+    public void setFunc(PeriodicFunc func) {
+        this.func = func;
     }
     
     public String getEqu(){
@@ -64,8 +69,9 @@ public class DiffEqu {
         double omega = 3.14;
         double maxVal = 1;
         double duty = 80;    //persent
-        String waveform = "triangle";
-        DiffEqu equ = new DiffEqu(coefficient, omega, maxVal, duty, waveform);
+        String waveform = "rect";
+        PeriodicFunc func = new PeriodicFunc(omega, maxVal, duty, waveform);
+        DiffEqu equ = new DiffEqu(coefficient, func);
         System.out.println(equ.getEqu());
         System.out.println(equ.getOrder());
     }

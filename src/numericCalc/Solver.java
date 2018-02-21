@@ -14,12 +14,13 @@ import java.io.PrintWriter;
  * @author Char Aznable
  */
 public class Solver{
+    
     Solver(){
     }
 
     public static double[] solve(DiffEqu equ, double[] init, double time, double interval){
         int order = equ.getOrder();
-        if (order != init.length) return init;    //係数とinitの数が一致しなかったら変更なし
+        if (order != init.length || order<1) return init;    //係数とinitの数が一致しなかったら変更なし 0階微分もだめ
         double[][] k = new double[order][4];    //
         double[] x = new double[order]; //変数は階数の数だけある
         
@@ -101,27 +102,33 @@ public class Solver{
         double maxVal = 2;
         double duty = 80;
         String waveform = "cos";
-        DiffEqu equ = new DiffEqu(coefficient, omega, maxVal, duty, waveform);
+        PeriodicFunc func = new PeriodicFunc(omega, maxVal, duty, waveform);
+        DiffEqu equ = new DiffEqu(coefficient, func);
 
         System.out.println(equ.getEqu());
         
         double[] init = {0, 0};
         double time = 0;
         double interval = 0.01;
-        
-        double tv = 0;
+
+        double tv = 0;  //true value
         try {
             // FileWriterクラスのオブジェクトを生成する
             FileWriter file = new FileWriter("test.txt");
             // PrintWriterクラスのオブジェクトを生成する
             PrintWriter pw = new PrintWriter(new BufferedWriter(file));
             
+            pw.println("time\tval\ttv");
+            
             //ファイルに書き込む
-            for (int i=0;i<200000;i++) {
+            for (int i=0;i<200;i++) {
                 //System.out.println(Arrays.toString(init));
                 pw.println(time+"\t"+init[0]+"\t"+tv);
                 time += interval;
                 init = solve(equ, init, time, interval);
+                
+                if (Double.isNaN(init[0])) break;   //NaNが出たら終了
+                
                 //tv = Math.sin(time);
                 tv = (3.0/20.0)*Math.exp(-3.0*time) + (1.0/4.0)*Math.exp(time)
                             + (1.0/5.0)*Math.sin(time) - (2.0/5.0)*Math.cos(time);
