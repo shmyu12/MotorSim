@@ -14,15 +14,17 @@ public class Motor {
     
     double resistance;      //ohm
     double inductance;      //henry
-    double efc;             //volt/rad
+    double cemfConst;             //volt/rad
+    double torqueConst;        //Nm/A
     double inertia;         //kgm^2
     double dampingRatio;    //kg/s
     
-    public Motor (double resistance, double inductance, double efc, double inertia, double dampingRatio) {
+    public Motor (double resistance, double inductance, double cemfConst, double torqueConst, double inertia, double dampingRatio) {
         this.resistance = resistance;
-        this. inductance = inductance;
-        this.efc = efc;
+        this.inductance = inductance;
+        this.cemfConst = cemfConst;
         this.inertia = inertia;
+        this.torqueConst = torqueConst;
         this.dampingRatio = dampingRatio;
         equ = new DiffEqu(calcCoefficient());
     }
@@ -30,16 +32,18 @@ public class Motor {
     public Motor () {
         resistance = 0;
         inductance = 0;
-        efc = 0;
+        cemfConst = 0;
         inertia = 0;
+        torqueConst = 0;
         dampingRatio = 0;
         equ = new DiffEqu(calcCoefficient());
     }
     
-    public void setPram (double resistance, double inductance, double efc, double inertia, double dampingRatio) {
+    public void setPram (double resistance, double inductance, double cemfConst, double torqueConst, double inertia, double dampingRatio) {
         this.resistance = resistance;
         this. inductance = inductance;
-        this.efc = efc;
+        this.cemfConst = cemfConst;
+        this.torqueConst = torqueConst;
         this.inertia = inertia;
         this.dampingRatio = dampingRatio;
         equ = new DiffEqu(calcCoefficient());
@@ -56,10 +60,10 @@ public class Motor {
     public static void main(String args[]) {
         double resistance = 1.0;
         double inductance = 0.5;
-        double efc = 0.01;
+        double cemfConst = 0.01;
         double inertia = 0.01;
         double dampingRatio = 0.1;
-        Motor motor = new Motor(resistance, inductance, efc, inertia, dampingRatio);
+        Motor motor = new Motor(resistance, inductance, cemfConst, inertia, ,dampingRatio);
         System.out.println(motor.equ.getEqu());
     }
 }
