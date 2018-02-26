@@ -10,7 +10,6 @@ import numericCalc.DiffEqu;
  * @author Char Aznable
  */
 public class Motor {
-    public DiffEqu equ;            //related to omega
     
     double resistance;      //ohm
     double inductance;      //henry
@@ -23,33 +22,21 @@ public class Motor {
         this.resistance = resistance;
         this.inductance = inductance;
         this.cemfConst = cemfConst;
-        this.inertia = inertia;
         this.torqueConst = torqueConst;
+        this.inertia = inertia;
         this.dampingRatio = dampingRatio;
-        equ = new DiffEqu(calcCoefficient());
     }
     
-    public Motor () {
-        resistance = 0;
-        inductance = 0;
-        cemfConst = 0;
-        inertia = 0;
-        torqueConst = 0;
-        dampingRatio = 0;
-        equ = new DiffEqu(calcCoefficient());
-    }
-    
-    public void setPram (double resistance, double inductance, double cemfConst, double torqueConst, double inertia, double dampingRatio) {
+    public void setPrams (double resistance, double inductance, double cemfConst, double torqueConst, double inertia, double dampingRatio) {
         this.resistance = resistance;
-        this. inductance = inductance;
+        this.inductance = inductance;
         this.cemfConst = cemfConst;
         this.torqueConst = torqueConst;
         this.inertia = inertia;
         this.dampingRatio = dampingRatio;
-        equ = new DiffEqu(calcCoefficient());
     }
     
-    private double[] calcCoefficient() {
+    double[] calcCoefficient() {
         double[] coefficient = new double[3];
         coefficient [0] = 1;
         coefficient [1] = 0;
@@ -61,9 +48,12 @@ public class Motor {
         double resistance = 1.0;
         double inductance = 0.5;
         double cemfConst = 0.01;
+        double torqueConst = 0.3;
         double inertia = 0.01;
         double dampingRatio = 0.1;
-        Motor motor = new Motor(resistance, inductance, cemfConst, inertia, ,dampingRatio);
-        System.out.println(motor.equ.getEqu());
+        Motor motor = new Motor(resistance, inductance, cemfConst, torqueConst, inertia,dampingRatio);
+        
+        DiffEqu equ = new DiffEqu(motor.calcCoefficient());
+        System.out.println(equ.getEqu());
     }
 }

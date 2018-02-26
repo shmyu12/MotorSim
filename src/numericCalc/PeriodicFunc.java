@@ -48,6 +48,10 @@ public class PeriodicFunc {
         }
     }
     
+    public void setMaxVal(double maxVal) {
+        this.maxVal = maxVal;
+    }
+    
     double calcPeriod() {
         return (2*PI)/omega;
     }
