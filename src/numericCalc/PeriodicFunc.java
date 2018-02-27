@@ -52,6 +52,10 @@ public class PeriodicFunc {
         this.maxVal = maxVal;
     }
     
+    public double getMaxVal() {
+        return maxVal;
+    }
+    
     double calcPeriod() {
         return (2*PI)/omega;
     }
@@ -93,8 +97,8 @@ public class PeriodicFunc {
     }
     
     public static void main (String[] args) {
-        double omega = 2*PI;
-        double maxVal = 1;
+        double omega = 1.0;
+        double maxVal = 2.0;
         double duty = 80;    //persent
         String waveform = "triangle";
         PeriodicFunc func = new PeriodicFunc(omega, maxVal, duty, waveform);

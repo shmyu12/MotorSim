@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package motor;
+import java.util.Arrays;
 import numericCalc.DiffEqu;
 /**
  *
@@ -38,22 +39,23 @@ public class Motor {
     
     double[] calcCoefficient() {
         double[] coefficient = new double[3];
-        coefficient [0] = 1;
-        coefficient [1] = 0;
-        coefficient [2] = 3;
+        coefficient [0] = resistance*dampingRatio+cemfConst;
+        coefficient [1] = inductance*dampingRatio+resistance*inertia;
+        coefficient [2] = inductance*inertia;
         return coefficient;
     }
     
     public static void main(String args[]) {
         double resistance = 1.0;
         double inductance = 0.5;
-        double cemfConst = 0.01;
+        double cemfConst = 0.3;
         double torqueConst = 0.3;
-        double inertia = 0.01;
+        double inertia = 2.0;
         double dampingRatio = 0.1;
-        Motor motor = new Motor(resistance, inductance, cemfConst, torqueConst, inertia,dampingRatio);
-        
+        Motor motor = new Motor(resistance, inductance, cemfConst, torqueConst, inertia, dampingRatio);
         DiffEqu equ = new DiffEqu(motor.calcCoefficient());
+        
+        System.out.println(Arrays.toString(motor.calcCoefficient()));
         System.out.println(equ.getEqu());
     }
 }

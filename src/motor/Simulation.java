@@ -11,7 +11,6 @@ package motor;
  */
 public class Simulation {
     Motor motor;
-    Drive drive;
     
     public Simulation () {
         

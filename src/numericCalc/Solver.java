@@ -9,14 +9,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 /**
  *
  * @author Char Aznable
  */
 public class Solver{
-    
-    Solver(){
-    }
 
     public static double[] solve(DiffEqu equ, double[] init, double time, double interval){
         int order = equ.getOrder();
@@ -97,11 +95,12 @@ public class Solver{
     }
     
     public static void main(String args[]) {
-        double[] coefficient = {-3, 2, 1};
+        //double[] coefficient = {-3, 2, 1};
+        double[] coefficient = {0.4, 2.05, 1.0};
         double omega = 1;
         double maxVal = 2;
         double duty = 80;
-        String waveform = "cos";
+        String waveform = "triangle";
         PeriodicFunc func = new PeriodicFunc(omega, maxVal, duty, waveform);
         DiffEqu equ = new DiffEqu(coefficient, func);
 
@@ -110,7 +109,12 @@ public class Solver{
         double[] init = {0, 0};
         double time = 0;
         double interval = 0.01;
-
+        for (int i=0; i<100; i++) {
+            init = solve(equ, init, time, interval);
+            System.out.println(Arrays.toString(init));
+            time += interval;
+        }
+/*
         double tv = 0;  //true value
         try {
             // FileWriterクラスのオブジェクトを生成する
@@ -137,5 +141,6 @@ public class Solver{
             pw.close();
         } catch (IOException e) {
         }
+*/
     }
 }
