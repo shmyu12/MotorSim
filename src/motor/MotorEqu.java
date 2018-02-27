@@ -39,8 +39,16 @@ public class MotorEqu {
     
     public double[] solve() {
         init = Solver.solve(equ, init, time, interval);
-        time += interval;
-        return init;
+        time += interval;   //init and time are auto-update
+        return init;        //return answer
+    }
+    
+    public double getTime() {
+        return time;
+    }
+    
+    public String getEqu() {
+        return equ.getEqu();
     }
     
     public static void main(String[] args) {
