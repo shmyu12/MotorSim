@@ -39,19 +39,19 @@ public class Motor {
     
     double[] calcCoefficient() {
         double[] coefficient = new double[3];
-        coefficient [0] = resistance*dampingRatio+cemfConst;
-        coefficient [1] = inductance*dampingRatio+resistance*inertia;
-        coefficient [2] = inductance*inertia;
+        coefficient [0] = (resistance*dampingRatio)/torqueConst+cemfConst;
+        coefficient [1] = (inductance*dampingRatio+resistance*inertia)/torqueConst;
+        coefficient [2] = (inductance*inertia)/torqueConst;
         return coefficient;
     }
     
     public static void main(String args[]) {
-        double resistance = 1.0;
-        double inductance = 0.5;
-        double cemfConst = 0.3;
-        double torqueConst = 0.3;
-        double inertia = 2.0;
-        double dampingRatio = 0.1;
+        double resistance = 0.952;
+        double inductance = 0.000088;
+        double cemfConst = 0.0143;
+        double torqueConst = 0.0143;
+        double inertia = 0.00000104;
+        double dampingRatio = 0;
         Motor motor = new Motor(resistance, inductance, cemfConst, torqueConst, inertia, dampingRatio);
         DiffEqu equ = new DiffEqu(motor.calcCoefficient());
         

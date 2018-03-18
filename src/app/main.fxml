@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainController">
    <children>
+      <ComboBox fx:id="preset" onAction="#onPresetChoosed" prefWidth="150.0" promptText="Motor Preset" />
       <HBox prefHeight="19.0" prefWidth="600.0">
          <children>
             <Label prefHeight="17.0" prefWidth="155.0" text="Resistance" />
@@ -60,7 +61,7 @@
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <Button fx:id="solve" mnemonicParsing="false" onAction="#onSolveButtonClicked" text="Solve" />
-            <Label fx:id="formula" prefHeight="28.0" prefWidth="297.0" text="Differential Equation" textAlignment="CENTER" />
+            <Label fx:id="formula" contentDisplay="CENTER" prefHeight="15.0" prefWidth="645.0" text="Differential Equation" textAlignment="CENTER" />
          </children>
       </VBox>
    </children>

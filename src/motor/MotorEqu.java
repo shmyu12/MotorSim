@@ -26,7 +26,7 @@ public class MotorEqu {
     public MotorEqu(Motor motor, PeriodicFunc drive, double[] init, double time, double interval) {
         this.motor = motor;
         this.drive = drive;
-        drive.setMaxVal(drive.getMaxVal()*motor.torqueConst);
+        //drive.setMaxVal(drive.getMaxVal()*motor.torqueConst);
         equ = new DiffEqu(motor.calcCoefficient(), drive);
         this.init = init;
         this.time = time;
@@ -52,18 +52,18 @@ public class MotorEqu {
     }
     
     public static void main(String[] args) {
-        double resistance = 1.0;
-        double inductance = 0.5;
-        double cemfConst = 0.3;
-        double torqueConst = 0.3;
-        double inertia = 2.0;
-        double dampingRatio = 0.1;
+        double resistance = 0.952;
+        double inductance = 0.000088;
+        double cemfConst = 0.0143;
+        double torqueConst = 0.0143;
+        double inertia = 0.00000104;
+        double dampingRatio = 0;
         Motor motor = new Motor(resistance, inductance, cemfConst, torqueConst, inertia, dampingRatio);
         
         double omega = 10;
-        double maxVal = 6.;
+        double maxVal = 15;
         double duty = 80;    //persent
-        String waveform = "cos";
+        String waveform = "step";
         PeriodicFunc drive = new PeriodicFunc(omega, maxVal, duty, waveform);
         
         double[] init = {0, 0};

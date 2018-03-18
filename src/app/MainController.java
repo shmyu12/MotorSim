@@ -11,12 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import motor.Motor;
@@ -46,6 +45,8 @@ public class MainController implements Initializable {
     @FXML private TextField interval;
     @FXML private TextField steps;
     
+    @FXML private ComboBox preset;
+    
     MotorEqu equ;
     Motor motor;
     PeriodicFunc drive;
@@ -56,11 +57,37 @@ public class MainController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        preset.getItems().add("none");
+        preset.getItems().add("RE20");
     }
     
     @FXML
     public void onPramInput(ActionEvent event) {
+    }
+    
+    @FXML
+    public void onPresetChoosed(ActionEvent event) {
+        switch (preset.getValue().toString()) {
+            case "none" :
+                resistance.setText("");
+                inductance.setText("");
+                cemfConst.setText("");
+                torqueConst.setText("");
+                inertia.setText("");
+                dampingRatio.setText("");
+                break;
+            case "RE20" :
+                resistance.setText("0.952");
+                inductance.setText("0.000088");
+                cemfConst.setText("0.0143");
+                torqueConst.setText("0.0143");
+                inertia.setText("0.00000104");
+                dampingRatio.setText("0");
+                break;
+            default :
+                break;
+        }
+        
     }
     
     @FXML
@@ -89,11 +116,15 @@ public class MainController implements Initializable {
                 FileWriter file = new FileWriter("test.tsv");
                 PrintWriter pw = new PrintWriter(new BufferedWriter(file));
 
-                pw.println("time\tomega\tomega_dot");
+                pw.println("time\tomega");
 
+                double tmp_time;
+                double tmp_omega;
                 //ファイルに書き込む
                 for (int i=0;i<Integer.parseInt(steps.getText());i++) {
-                    pw.println(equ.getTime()+"\t"+Arrays.toString(equ.solve()));
+                    tmp_time = equ.getTime();
+                    tmp_omega = equ.solve()[0];
+                    pw.println(tmp_time+"\t"+tmp_omega);
                 }
                 //ファイルを閉じる
                 pw.close();

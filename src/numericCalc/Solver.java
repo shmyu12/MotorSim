@@ -114,7 +114,7 @@ public class Solver{
             System.out.println(Arrays.toString(init));
             time += interval;
         }
-/*
+
         double tv = 0;  //true value
         try {
             // FileWriterクラスのオブジェクトを生成する
@@ -141,6 +141,5 @@ public class Solver{
             pw.close();
         } catch (IOException e) {
         }
-*/
     }
 }
